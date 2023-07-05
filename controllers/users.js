@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const Error = require('mongoose');
@@ -47,30 +46,15 @@ function findUser(req, res, next, id) {
       }
     });
 }
-// GET /users/
-const getUsers = (req, res, next) => {
-  User.find({})
-    .then((users) => res.status(statusCode.OK).send(users))
-    .catch(next);
-};
 
-// GET /users/:id
-const getUserById = (req, res, next) => {
-  const { id } = req.params;
-
-  findUser(req, res, next, id);
-};
-
-// POST /users/signup
+// POST /signup
 const createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name, email, password,
   } = req.body;
 
   bcrypt.hash(password, 10).then((hash) => User.create({
     name,
-    about,
-    avatar,
     email,
     password: hash,
   }))
@@ -89,19 +73,12 @@ const createUser = (req, res, next) => {
 
 // PATCH /users/me
 const updProfile = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name, email } = req.body;
   const id = req.user._id;
 
-  findAndUpdate(req, res, next, id, { name, about });
+  findAndUpdate(req, res, next, id, { name, email });
 };
 
-// PATCH /users/me/avatar
-const updAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  const id = req.user._id;
-
-  findAndUpdate(req, res, next, id, { avatar });
-};
 // POST /signin
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -113,7 +90,6 @@ const login = (req, res, next) => {
         return user;
       }
       throw new UnauthorizedError('Пользователь не найден');
-      // eslint-disable-next-line no-shadow
     }))
     .then((user) => {
       const token = jsonwebtoken.sign({ _id: user._id }, JWT_SECRET, {
@@ -130,11 +106,8 @@ const getUserInfo = (req, res, next) => {
 };
 
 module.exports = {
-  getUsers,
-  getUserById,
   createUser,
   updProfile,
-  updAvatar,
   login,
   getUserInfo,
 };

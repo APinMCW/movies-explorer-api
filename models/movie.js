@@ -10,19 +10,19 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: [true, 'director is required'],
   },
-  duration : {
+  duration: {
     type: Number,
     required: [true, 'duration is required'],
   },
-  year : {
+  year: {
     type: String,
     required: [true, 'year is required'],
   },
-  description : {
+  description: {
     type: String,
     required: [true, 'description is required'],
   },
-  image : {
+  image: {
     type: String,
     required: [true, 'image is required'],
     validate: {
@@ -32,7 +32,7 @@ const movieSchema = new mongoose.Schema({
       message: 'Invalid link image',
     },
   },
-  trailerLink : {
+  trailerLink: {
     type: String,
     required: [true, 'trailerLink is required'],
     validate: {
@@ -42,7 +42,7 @@ const movieSchema = new mongoose.Schema({
       message: 'Invalid link trailerLink',
     },
   },
-  thumbnail : {
+  thumbnail: {
     type: String,
     required: [true, 'thumbnail is required'],
     validate: {
@@ -57,7 +57,7 @@ const movieSchema = new mongoose.Schema({
     ref: 'user',
     required: true,
   },
-  movieId : {
+  movieId: {
     type: Number,
     required: [true, 'movieId is required'],
   },

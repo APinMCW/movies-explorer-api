@@ -3,7 +3,7 @@ const router = require('express').Router();
 const NotFoundError = require('../errors/not-found-err');
 
 const userRoutes = require('./users');
-const cardRoutes = require('./cards');
+const movieRoutes = require('./movies');
 const authRoutes = require('./auth');
 
 router.get('/crash-test', () => {
@@ -13,7 +13,7 @@ router.get('/crash-test', () => {
 });
 router.use('/', authRoutes);
 router.use('/users', userRoutes);
-router.use('/cards', cardRoutes);
+router.use('/movies', movieRoutes);
 
 router.use(errors());
 
